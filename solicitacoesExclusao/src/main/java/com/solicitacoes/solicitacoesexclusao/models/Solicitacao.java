@@ -1,4 +1,4 @@
-package com.solicitacoes.solicitacoesinclusao.models;
+package com.solicitacoes.solicitacoesexclusao.models;
 
 import java.io.Serializable;
 import java.sql.Date;

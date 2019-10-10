@@ -1,4 +1,4 @@
-package com.example.filedemo.model;
+package com.solicitacoesanexos.filedemo.model;
 
 import org.hibernate.annotations.GenericGenerator;
 

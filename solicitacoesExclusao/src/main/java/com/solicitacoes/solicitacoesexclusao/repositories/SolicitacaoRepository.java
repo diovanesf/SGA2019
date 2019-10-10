@@ -1,6 +1,6 @@
-package com.solicitacoes.solicitacoesinclusao.repositories;
+package com.solicitacoes.solicitacoesexclusao.repositories;
 
-import com.solicitacoes.solicitacoesinclusao.models.Solicitacao;
+import com.solicitacoes.solicitacoesexclusao.models.Solicitacao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

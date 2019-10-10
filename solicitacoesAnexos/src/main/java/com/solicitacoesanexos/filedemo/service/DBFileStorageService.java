@@ -1,9 +1,9 @@
-package com.example.filedemo.service;
+package com.solicitacoesanexos.filedemo.service;
 
-import com.example.filedemo.exception.FileStorageException;
-import com.example.filedemo.exception.MyFileNotFoundException;
-import com.example.filedemo.model.DBFile;
-import com.example.filedemo.repository.DBFileRepository;
+import com.solicitacoesanexos.filedemo.exception.FileStorageException;
+import com.solicitacoesanexos.filedemo.exception.MyFileNotFoundException;
+import com.solicitacoesanexos.filedemo.model.DBFile;
+import com.solicitacoesanexos.filedemo.repository.DBFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

@@ -1,6 +1,6 @@
-package com.example.filedemo.repository;
+package com.solicitacoesanexos.filedemo.repository;
 
-import com.example.filedemo.model.DBFile;
+import com.solicitacoesanexos.filedemo.model.DBFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

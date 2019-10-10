@@ -1,4 +1,4 @@
-package com.example.filedemo.payload;
+package com.solicitacoesanexos.filedemo.payload;
 
 
 public class UploadFileResponse {

@@ -1,8 +1,8 @@
-package com.example.filedemo.controller;
+package com.solicitacoesanexos.filedemo.controller;
 
-import com.example.filedemo.model.DBFile;
-import com.example.filedemo.payload.UploadFileResponse;
-import com.example.filedemo.service.DBFileStorageService;
+import com.solicitacoesanexos.filedemo.model.DBFile;
+import com.solicitacoesanexos.filedemo.payload.UploadFileResponse;
+import com.solicitacoesanexos.filedemo.service.DBFileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

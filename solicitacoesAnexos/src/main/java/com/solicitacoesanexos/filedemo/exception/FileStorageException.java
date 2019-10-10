@@ -1,4 +1,4 @@
-package com.example.filedemo.exception;
+package com.solicitacoesanexos.filedemo.exception;
 
 @SuppressWarnings("serial")
 public class FileStorageException extends RuntimeException {

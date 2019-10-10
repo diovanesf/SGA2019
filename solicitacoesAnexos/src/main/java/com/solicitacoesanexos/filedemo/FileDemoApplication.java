@@ -1,13 +1,12 @@
-package com.solicitacoes.solicitacoesinclusao;
+package com.solicitacoesanexos.filedemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SolicitacoesinclusaoApplication {
+public class FileDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SolicitacoesinclusaoApplication.class, args);
+		SpringApplication.run(FileDemoApplication.class, args);
 	}
-
 }
