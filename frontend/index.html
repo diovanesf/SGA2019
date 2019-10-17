@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistema de Solicitação de ACGs</title>
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="cdn/bootstrap-4.3.1/css/bootstrap.css">
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-dark bg-green">
+      <div class="container">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Início
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sair</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Header -->
+    <header class="bg-grey-default py-3">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-lg-6">
+            
+          </div>
+          <div class="col-lg-6">
+            <h2 class="mt-5 mb-2">Programa de Integração de ACG'S</h2>
+          </div>
+        </div>
+      </div>
+    </header>
+   
+    
+    <!-- Page Content -->
+    <div class="container mb-5">
+      <div class="row">
+        <nav class="mt-5" aria-label="breadcrumb">
+        </nav>
+        <form id="form">
+            <div class="form-group">
+              <label for="solicitante">Solicitante:</label>
+              <input type="text" class="form-control" id="solicitante" placeholder="Solicitante" required>
+            </div>
+            <div class="form-group">
+              <label for="validationMatricula">Matrícula:</label>
+              <input type="text" class="form-control" id="validationDefault02" placeholder="Matrícula" required>
+            </div>
+    
+            
+            <div class="form-group">
+              <label for="validationGrupo">Grupo:</label>
+              <select id="selectorGrupo" class="custom-select">
+                <option selected>Selecionar grupo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="validationAtividade">Atividade:</label>
+              <select id="selectorAtividade" class="custom-select">
+                <option selected>Selecionar atividade</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="validationCH">Carga Horária Solicitada:</label>
+              <input type="text" class="form-control" id="validationDefault02" placeholder="Carga horária" required>
+            </div>
+            <div class="form-group">
+              <label for="validationCH">Carga Horária Aproveitada:</label>
+              <input type="text" class="form-control" id="validationDefault02" placeholder="Carga aproveitada" required>
+            </div>
+            <div class="upload-container">
+              
+              <div class="upload-content">
+                <!-- <div class="single-upload">
+                                <h3>Upload Single File</h3>
+                                <form id="singleUploadForm" name="singleUploadForm">
+                                    <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
+                                    <button type="submit" class="primary submit-btn">Submit</button>
+                                </form>
+                                <div class="upload-response">
+                                    <div id="singleFileUploadError"></div>
+                                    <div id="singleFileUploadSuccess"></div>
+                                </div>
+                            </div> -->
+                <div class="multiple-upload">
+                  <label for="validationCH">Documentos Comprobatórios:</label>
+                    <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />
+                    
+                  <div class="upload-response">
+                    <div id="multipleFileUploadError"></div>
+                    <div id="multipleFileUploadSuccess"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script src="/js/main.js"></script>
+          </div>
+          <div class="row justify-content-end">
+            
+          </div>
+          <div class="row justify-content-end">
+            <button type="button" class="btn btn-danger mr-3" onclick="">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Sistema PIA</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="cdn/axios/axios.min.js"></script>
+    <script src="cdn/jquery/jquery-3.4.1.min.js"></script>
+    <script src="cdn/mask/mask.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+  </html>
