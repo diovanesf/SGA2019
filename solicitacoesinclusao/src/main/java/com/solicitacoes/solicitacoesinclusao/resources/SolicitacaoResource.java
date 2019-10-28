@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping("solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
@@ -29,7 +29,7 @@ public class SolicitacaoResource {
     //     return solicitacaoRepository.findById(id);
     // }
 
-    @PostMapping("/solicitacao")
+    @PostMapping(value="")
     public Solicitacao salvaSolicitacao(@RequestBody Solicitacao solicitacao){
         
         return solicitacaoRepository.save(solicitacao);

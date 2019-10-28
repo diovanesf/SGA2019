@@ -8,24 +8,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-
-
 /**
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping("solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
 
-     @GetMapping("/solicitacoes")
+     @GetMapping(value="")
      public List<Solicitacao> listaSolicitacoes(){
          return solicitacaoRepository.findAll();
      }
 
-     @GetMapping("/solicitacao/{id}")
+     @GetMapping(value="/{id}")
      public Solicitacao listaSolicitacaoUnica(@PathVariable(value="id")long id){
          return solicitacaoRepository.findById(id);
      }
