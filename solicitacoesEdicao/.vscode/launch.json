@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SolicitacoesEdicaoApplication",
+            "request": "launch",
+            "mainClass": "com.solicitacoesEdicao.solicitacoesEdicao.SolicitacoesEdicaoApplication",
+            "projectName": "solicitacoesEdicao"
+        }
+    ]
+}
