@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="solicitacoes">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sistema de Solicitação de ACGs</title>
-    <!-- Bootstrap -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+    
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+   <script src="js/solicitacoes.module.js"></script>
+   <script src="js/solicitacoes.controller.js"></script>
     <link rel="stylesheet" href="cdn/bootstrap-4.3.1/css/bootstrap.css">
     <!-- App Styles -->
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+
+    <div class="container" ng-controller="SolicitacoesController">
+      <h1>{{ titulo }}</h1>
+
+    </div>
     <!-- Navigation -->
+
     <nav class="navbar navbar-inverse navbar-dark bg-green">
       <div class="container">
         <a class="navbar-brand" href="#"></a>
@@ -55,38 +62,56 @@
       <div class="row">
         <nav class="mt-5" aria-label="breadcrumb">
         </nav>
-        <form id="form">
+        <form id="form" name="formulario" ng-submit="adicionarSolicitacao" novalidate>
             <div class="form-group">
               <label for="solicitante">Solicitante:</label>
-              <input type="text" class="form-control" id="solicitante" placeholder="Solicitante" required>
+              <input name="solicitante" type="text" class="form-control" id="solicitante" placeholder="Solicitante" ng-model="novaSolicitacao.solicitante" required>
+            </div>
+            <div ng-if="(formulario.solicitante.$touched || formulario.$submitted) && formulario.solicitante.$invalid">
+              <span ng-if="formulario.solicitante.$error.required"> O campo Solicitante é obrigatorio </span>
+              
             </div>
             <div class="form-group">
               <label for="validationMatricula">Matrícula:</label>
-              <input type="text" class="form-control" id="validationDefault02" placeholder="Matrícula" required>
+              <input type="text" name="matricula" class="form-control" id="matricula" placeholder="Matrícula" ng-model="novaSolicitacao.matricula" required>
             </div>
-    
+            <div ng-if="(formulario.matricula.$touched || formulario.$submitted)  && formulario.matricula.$invalid">
+              <span ng-if="formulario.matricula.$error.required"> O campo Matrícula é obrigatorio </span>
+            </div>
             
             <div class="form-group">
               <label for="validationGrupo">Grupo:</label>
-              <select id="selectorGrupo" class="custom-select">
+              <select id="grupo" class="custom-select" name ="grupo" ng-model="novaSolicitacao.grupo" required>
                 <option selected>Selecionar grupo</option>
               </select>
             </div>
+            <div ng-if="(formulario.grupo.$touched || formulario.$submitted) && formulario.grupo.$invalid">
+              <span ng-if="formulario.grupo.$error.required"> Selecione um Grupo </span>
+            </div>
             <div class="form-group">
               <label for="validationAtividade">Atividade:</label>
-              <select id="selectorAtividade" class="custom-select">
+              <select id="atividade" name="atividade" class="custom-select" required ng-model="novaSolicitacao.atividade">
                 <option selected>Selecionar atividade</option>
               </select>
             </div>
+            <div ng-if="(formulario.atividade.$touched || formulario.$submitted)  && formulario.atividade.$invalid">
+              <span ng-if="formulario.atividade.$error.required"> Selecione uma Atividade </span>
+            </div>
             <div class="form-group">
               <label for="validationCH">Carga Horária Solicitada:</label>
-              <input type="text" class="form-control" id="validationDefault02" placeholder="Carga horária" required>
+              <input type="text" name="cargaHorariaSolicitada"class="form-control" id="cargaHorariaSolicitada" placeholder="Carga horária" ng-model="novaSolicitacao.cargaHorariaSolicitada" required>
             </div>
-            <div class="form-group">
+            <div ng-if="(formulario.cargaHorariaSolicitada.$touched || formulario.$submitted) && formulario.cargaHorariaSolicitada.$invalid">
+              <span ng-if="formulario.cargaHorariaSolicitada.$error.required"> Este campo é obrigatorio </span>
+            </div>
+              <div class="form-group">
               <label for="validationCH">Carga Horária Aproveitada:</label>
-              <input type="text" class="form-control" id="validationDefault02" placeholder="Carga aproveitada" required>
+              <input type="text" name="cargaHorariaAproveitada"class="form-control" id="cargaHorariaAproveitada" placeholder="Carga aproveitada" ng-model="novaSolicitacao.cargaHorariaAproveitada" required>
             </div>
-            <div class="upload-container">
+            <div ng-if="(formulario.cargaHorariaAproveitada.$touched || formulario.$submitted)  && formulario.cargaHorariaAproveitada.$invalid">
+              <span ng-if="formulario.cargaHorariaAproveitada.$error.required"> Este campo é obrigatorio </span>
+            </div>
+              <div class="upload-container">
               
               <div class="upload-content">
                 <!-- <div class="single-upload">
@@ -102,11 +127,14 @@
                             </div> -->
                 <div class="multiple-upload">
                   <label for="validationCH">Documentos Comprobatórios:</label>
-                    <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />
+                    <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple ng-model="novaSolicitacao.documentosComprobatorios" required />
                     
                   <div class="upload-response">
                     <div id="multipleFileUploadError"></div>
                     <div id="multipleFileUploadSuccess"></div>
+                  </div>
+                  <div ng-if="(formulario.files.$touched || formulario.$submitted)  && formulario.files.$invalid">
+                    <span ng-if="formulario.files.$error.required"> Este campo é obrigatorio </span>
                   </div>
                 </div>
               </div>
@@ -116,9 +144,9 @@
           <div class="row justify-content-end">
             
           </div>
-          <div class="row justify-content-end">
-            <button type="button" class="btn btn-danger mr-3" onclick="">Cancelar</button>
-            <button class="btn btn-primary" type="submit">Enviar</button>
+          <div class="row justify-content-end" ng-controller="SolicitacoesController">
+            <button type="button" class="btn btn-danger mr-3" ng-click="enviarForm">Cancelar</button>
+            <button class="btn btn-primary" type="submit">Salvar  </button>
           </div>
         </form>
       </div>

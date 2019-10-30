@@ -42,3 +42,7 @@
 .breadcrumb >.active {
     color: black;
  }
+
+ input.ng-touched.ng-invalid, textarea.ng-invalid{
+     border-color: #ff0000;
+ }
