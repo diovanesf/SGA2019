@@ -19,7 +19,7 @@ angular.module("solicitacoes").factory("TodasSolicitacoes", function($q, $http){
             return promessa.promise;
         },
         inserir: function(solicitacao){
-            return $http.put("url do serviço de inclusao", solicitacao);
+            return $http.put("localhost:8081/solicitacoes/salvar", solicitacao);
         },
         remover: function(id){
             return $http.delete();
