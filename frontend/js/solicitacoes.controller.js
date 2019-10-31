@@ -1,19 +1,19 @@
 angular.module("solicitacoes").controller("SolicitacoesController", function($scope, TodasSolicitacoes){
     $scope.titulo = "Sistema para solicitação de ACG";
 
-    TodasSolicitacoes.listar().then(function(solicitacoes){
-        $scope.solicitacoes =  solicitacoes;
-    });
+    // TodasSolicitacoes.listar().then(function(solicitacoes){
+    //     $scope.solicitacoes =  solicitacoes;
+    // });
     $scope.resetForm = function(){
         $scope.formulario.$setPristine();
         $scope.formulario.$setUntouched();
     };
 
-    var carregarDados = function(){
-        TodasSolicitacoes.listar().then(function(solicitacoes){
-            $scope.solicitacoes = solicitacoes;
-        });
-    } 
+    // var carregarDados = function(){
+    //     TodasSolicitacoes.listar().then(function(solicitacoes){
+    //         $scope.solicitacoes = solicitacoes;
+    //     });
+    // } 
     
     $scope.adicionarSolicitacao = function(){
         var solicitacao={
@@ -35,6 +35,6 @@ angular.module("solicitacoes").controller("SolicitacoesController", function($sc
         TodasSolicitacoes.remover(id).then(carregarDados);
     }
 
-    carregarDados();
+    // carregarDados();
 
 })
