@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping(value="/solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
 
-    @DeleteMapping("/solicitacao")
+    @DeleteMapping("/deletar")
     public void deletaSolicitacao(@RequestBody Solicitacao solicitacao) {
         solicitacaoRepository.delete(solicitacao);
     }

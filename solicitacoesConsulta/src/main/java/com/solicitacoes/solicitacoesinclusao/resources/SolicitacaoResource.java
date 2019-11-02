@@ -12,18 +12,18 @@ import java.util.List;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping("solicitacao")
+@RequestMapping("/solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
 
-     @GetMapping(value="")
+     @GetMapping(value="/listarTudo")
      public List<Solicitacao> listaSolicitacoes(){
          return solicitacaoRepository.findAll();
      }
 
-     @GetMapping(value="/{id}")
+     @GetMapping(value="/consultar/{id}")
      public Solicitacao listaSolicitacaoUnica(@PathVariable(value="id")long id){
          return solicitacaoRepository.findById(id);
      }

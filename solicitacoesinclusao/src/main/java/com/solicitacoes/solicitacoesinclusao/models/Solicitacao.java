@@ -2,7 +2,6 @@ package com.solicitacoes.solicitacoesinclusao.models;
 
 import java.io.Serializable;
 import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,19 +31,20 @@ private String observacoesAnexos;
 private int status;
 private String periodoAtividade;
 private Date dataSolicitacao;
+private String professorResponsavel;
 
 
     public Solicitacao() {
     }
 
     public Solicitacao(long id, long codAtividade, String solicitante, String curriculo, String descricaoAtividade, 
-    int cargaHorariaSolicitada, int cargaHorariaAproveitada, String observacoesAnexos, int status, String periodoAtividade) {
+    int cargaHorariaSolicitada, int cargaHorariaAproveitada, String observacoesAnexos, int status, String periodoAtividade, String professorResponsavel) {
         this.id = id;
         this.codAtividade = codAtividade;
         this.solicitante = solicitante;
         this.curriculo = curriculo;
         this.periodoAtividade = periodoAtividade;
-        this.dataSolicitacao = ;
+        this.dataSolicitacao = System.currentTimeMillis();
     }
 
     public long getId() {
@@ -199,6 +199,21 @@ private Date dataSolicitacao;
      */
     public void setStatus(int status) {
         this.status = status;
+    }
+
+
+    /**
+     * @return String return the professorResponsavel
+     */
+    public String getProfessorResponsavel() {
+        return professorResponsavel;
+    }
+
+    /**
+     * @param professorResponsavel the professorResponsavel to set
+     */
+    public void setProfessorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
     }
 
 }

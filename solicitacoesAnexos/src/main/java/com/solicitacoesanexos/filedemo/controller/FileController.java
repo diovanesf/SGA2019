@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/solicitacao")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -26,7 +27,7 @@ public class FileController {
     @Autowired
     private DBFileStorageService DBFileStorageService;
 
-    @PostMapping("/uploadFile")
+    @PostMapping("/uploadAnexo")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         DBFile dbFile = DBFileStorageService.storeFile(file);
 
@@ -39,7 +40,7 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadMultipleFiles")
+    @PostMapping("/uploadAnexos")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
@@ -47,7 +48,7 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/downloadFile/{fileId}")
+    @GetMapping("/downloadAnexo/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database
         DBFile dbFile = DBFileStorageService.getFile(fileId);

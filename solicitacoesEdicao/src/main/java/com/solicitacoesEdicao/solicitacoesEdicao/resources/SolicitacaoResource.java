@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping("solicitacao")
+@RequestMapping("/solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
@@ -21,7 +21,7 @@ public class SolicitacaoResource {
 
    
 
-    @PutMapping
+    @PutMapping("/atualizar")
     public Solicitacao editaSolicitacao(@RequestBody Solicitacao solicitacao){
         
         return solicitacaoRepository.save(solicitacao);
