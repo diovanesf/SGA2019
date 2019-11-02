@@ -13,23 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping("solicitacao")
+@RequestMapping("/solicitacao")
 public class SolicitacaoResource {
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
 
-    // @GetMapping("/solicitacoes")
-    // public List<Solicitacao> listaSolicitacoes(){
-    //     return solicitacaoRepository.findAll();
-    // }
-
-    // @GetMapping("/solicitacao/{id}")
-    // public Solicitacao listaSolicitacaoUnica(@PathVariable(value="id")long id){
-    //     return solicitacaoRepository.findById(id);
-    // }
-
-    @PostMapping(value="")
+ 
+    @PostMapping(value="/salvar")
     public Solicitacao salvaSolicitacao(@RequestBody Solicitacao solicitacao){
         
         return solicitacaoRepository.save(solicitacao);
