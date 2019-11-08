@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SolicitacoesinclusaoApplication",
+            "request": "launch",
+            "mainClass": "com.solicitacoes.solicitacoesinclusao.SolicitacoesinclusaoApplication",
+            "projectName": "solicitacoesinclusao"
+        }
+    ]
+}

@@ -16,6 +16,49 @@ public class DBFile {
 
     private String fileType;
 
+    public DBFile(String id, String fileName, String fileType, int idSolicitacao, byte[] data) {
+        this.id = id;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.idSolicitacao = idSolicitacao;
+        this.data = data;
+    }
+
+    public int getIdSolicitacao() {
+        return this.idSolicitacao;
+    }
+
+    public void setIdSolicitacao(int idSolicitacao) {
+        this.idSolicitacao = idSolicitacao;
+    }
+
+    public DBFile id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public DBFile fileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+
+    public DBFile fileType(String fileType) {
+        this.fileType = fileType;
+        return this;
+    }
+
+    public DBFile idSolicitacao(int idSolicitacao) {
+        this.idSolicitacao = idSolicitacao;
+        return this;
+    }
+
+    public DBFile data(byte[] data) {
+        this.data = data;
+        return this;
+    }
+
+    private int idSolicitacao;
+
     @Lob
     private byte[] data;
 
@@ -23,7 +66,7 @@ public class DBFile {
 
     }
 
-    public DBFile(String fileName, String fileType, byte[] data) {
+    public DBFile(String fileName, String fileType, byte[] data, int idSolicitacao) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;

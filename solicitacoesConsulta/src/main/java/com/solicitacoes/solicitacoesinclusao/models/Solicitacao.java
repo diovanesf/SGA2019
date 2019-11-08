@@ -1,8 +1,6 @@
 package com.solicitacoes.solicitacoesinclusao.models;
 
 import java.io.Serializable;
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,26 +21,29 @@ private static final long serialVersionUID = 1L;
 @GeneratedValue(strategy=GenerationType.AUTO)    
 private long id;
 private long codAtividade;
-private String nomeDoAluno;
-private int matriculaDoAluno;
-private int cargaHoraria;
-private int cargaHorariaReal;
+private String solicitante;
+private String curriculo;
+private String descricaoAtividade;
+private int cargaHorariaSolicitada;
+private int cargaHorariaAproveitada;
+private String observacoesAnexos;
+private int status;
 private String periodoAtividade;
-private Date dataSolicitacao;
+private long dataSolicitacao;
+private String professorResponsavel;
 
 
     public Solicitacao() {
     }
 
-    public Solicitacao(long id, long codAtividade, String nomeDoAluno, int matriculaDoAluno, int cargaHoraria, int cargaHorariaReal, String periodoAtividade, Date dataSolicitacao) {
+    public Solicitacao(long id, long codAtividade, String solicitante, String curriculo, String descricaoAtividade, 
+    int cargaHorariaSolicitada, int cargaHorariaAproveitada, String observacoesAnexos, int status, String periodoAtividade, String professorResponsavel) {
         this.id = id;
         this.codAtividade = codAtividade;
-        this.nomeDoAluno = nomeDoAluno;
-        this.matriculaDoAluno = matriculaDoAluno;
-        this.cargaHoraria = cargaHoraria;
-        this.cargaHorariaReal = cargaHorariaReal;
+        this.solicitante = solicitante;
+        this.curriculo = curriculo;
         this.periodoAtividade = periodoAtividade;
-        this.dataSolicitacao = dataSolicitacao;
+        this.dataSolicitacao = System.currentTimeMillis();
     }
 
     public long getId() {
@@ -61,38 +62,6 @@ private Date dataSolicitacao;
         this.codAtividade = codAtividade;
     }
 
-    public String getNomeDoAluno() {
-        return this.nomeDoAluno;
-    }
-
-    public void setNomeDoAluno(String nomeDoAluno) {
-        this.nomeDoAluno = nomeDoAluno;
-    }
-
-    public int getMatriculaDoAluno() {
-        return this.matriculaDoAluno;
-    }
-
-    public void setMatriculaDoAluno(int matriculaDoAluno) {
-        this.matriculaDoAluno = matriculaDoAluno;
-    }
-
-    public int getCargaHoraria() {
-        return this.cargaHoraria;
-    }
-
-    public void setCargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-    }
-
-    public int getCargaHorariaReal() {
-        return this.cargaHorariaReal;
-    }
-
-    public void setCargaHorariaReal(int cargaHorariaReal) {
-        this.cargaHorariaReal = cargaHorariaReal;
-    }
-
     public String getPeriodoAtividade() {
         return this.periodoAtividade;
     }
@@ -101,11 +70,11 @@ private Date dataSolicitacao;
         this.periodoAtividade = periodoAtividade;
     }
 
-    public Date getDataSolicitacao() {
+    public long getDataSolicitacao() {
         return this.dataSolicitacao;
     }
 
-    public void setDataSolicitacao(Date dataSolicitacao) {
+    public void setDataSolicitacao(long dataSolicitacao) {
         this.dataSolicitacao = dataSolicitacao;
     }
 
@@ -119,37 +88,131 @@ private Date dataSolicitacao;
         return this;
     }
 
-    public Solicitacao nomeDoAluno(String nomeDoAluno) {
-        this.nomeDoAluno = nomeDoAluno;
-        return this;
-    }
-
-    public Solicitacao matriculaDoAluno(int matriculaDoAluno) {
-        this.matriculaDoAluno = matriculaDoAluno;
-        return this;
-    }
-
-    public Solicitacao cargaHoraria(int cargaHoraria) {
-        this.cargaHoraria = cargaHoraria;
-        return this;
-    }
-
-    public Solicitacao cargaHorariaReal(int cargaHorariaReal) {
-        this.cargaHorariaReal = cargaHorariaReal;
-        return this;
-    }
-
     public Solicitacao periodoAtividade(String periodoAtividade) {
         this.periodoAtividade = periodoAtividade;
         return this;
     }
 
-    public Solicitacao dataSolicitacao(Date dataSolicitacao) {
+    public Solicitacao dataSolicitacao(long dataSolicitacao) {
         this.dataSolicitacao = dataSolicitacao;
         return this;
     }
 
 
 
+
+
+    /**
+     * @return String return the solicitante
+     */
+    public String getSolicitante() {
+        return solicitante;
+    }
+
+    /**
+     * @param solicitante the solicitante to set
+     */
+    public void setSolicitante(String solicitante) {
+        this.solicitante = solicitante;
+    }
+
+    /**
+     * @return String return the curriculo
+     */
+    public String getCurriculo() {
+        return curriculo;
+    }
+
+    /**
+     * @param curriculo the curriculo to set
+     */
+    public void setCurriculo(String curriculo) {
+        this.curriculo = curriculo;
+    }
+
+    /**
+     * @return String return the descricaoAtividade
+     */
+    public String getDescricaoAtividade() {
+        return descricaoAtividade;
+    }
+
+    /**
+     * @param descricaoAtividade the descricaoAtividade to set
+     */
+    public void setDescricaoAtividade(String descricaoAtividade) {
+        this.descricaoAtividade = descricaoAtividade;
+    }
+
+    /**
+     * @return int return the cargaHorariaSolicitada
+     */
+    public int getCargaHorariaSolicitada() {
+        return cargaHorariaSolicitada;
+    }
+
+    /**
+     * @param cargaHorariaSolicitada the cargaHorariaSolicitada to set
+     */
+    public void setCargaHorariaSolicitada(int cargaHorariaSolicitada) {
+        this.cargaHorariaSolicitada = cargaHorariaSolicitada;
+    }
+
+    /**
+     * @return int return the cargaHorariaAproveitada
+     */
+    public int getCargaHorariaAproveitada() {
+        return cargaHorariaAproveitada;
+    }
+
+    /**
+     * @param cargaHorariaAproveitada the cargaHorariaAproveitada to set
+     */
+    public void setCargaHorariaAproveitada(int cargaHorariaAproveitada) {
+        this.cargaHorariaAproveitada = cargaHorariaAproveitada;
+    }
+
+    /**
+     * @return String return the observacoesAnexos
+     */
+    public String getObservacoesAnexos() {
+        return observacoesAnexos;
+    }
+
+    /**
+     * @param observacoesAnexos the observacoesAnexos to set
+     */
+    public void setObservacoesAnexos(String observacoesAnexos) {
+        this.observacoesAnexos = observacoesAnexos;
+    }
+
+    /**
+     * @return int return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+    /**
+     * @return String return the professorResponsavel
+     */
+    public String getProfessorResponsavel() {
+        return professorResponsavel;
+    }
+
+    /**
+     * @param professorResponsavel the professorResponsavel to set
+     */
+    public void setProfessorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
+    }
 
 }

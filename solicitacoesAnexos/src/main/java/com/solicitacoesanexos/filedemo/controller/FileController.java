@@ -1,5 +1,4 @@
 package com.solicitacoesanexos.filedemo.controller;
-
 import com.solicitacoesanexos.filedemo.model.DBFile;
 import com.solicitacoesanexos.filedemo.payload.UploadFileResponse;
 import com.solicitacoesanexos.filedemo.service.DBFileStorageService;
@@ -28,8 +27,8 @@ public class FileController {
     private DBFileStorageService DBFileStorageService;
 
     @PostMapping("/uploadAnexo")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        DBFile dbFile = DBFileStorageService.storeFile(file);
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, int idSolicitacao) {
+        DBFile dbFile = DBFileStorageService.storeFile(file, idSolicitacao);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -41,10 +40,10 @@ public class FileController {
     }
 
     @PostMapping("/uploadAnexos")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, int idSolicitacao) {
         return Arrays.asList(files)
                 .stream()
-                .map(file -> uploadFile(file))
+                .map(file -> uploadFile(file, idSolicitacao))
                 .collect(Collectors.toList());
     }
 

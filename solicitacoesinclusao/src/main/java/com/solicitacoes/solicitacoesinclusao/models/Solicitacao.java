@@ -1,7 +1,6 @@
 package com.solicitacoes.solicitacoesinclusao.models;
 
 import java.io.Serializable;
-import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +29,7 @@ private int cargaHorariaAproveitada;
 private String observacoesAnexos;
 private int status;
 private String periodoAtividade;
-private Date dataSolicitacao;
+private long dataSolicitacao;
 private String professorResponsavel;
 
 
@@ -71,11 +70,11 @@ private String professorResponsavel;
         this.periodoAtividade = periodoAtividade;
     }
 
-    public Date getDataSolicitacao() {
+    public long getDataSolicitacao() {
         return this.dataSolicitacao;
     }
 
-    public void setDataSolicitacao(Date dataSolicitacao) {
+    public void setDataSolicitacao(long dataSolicitacao) {
         this.dataSolicitacao = dataSolicitacao;
     }
 
@@ -94,7 +93,7 @@ private String professorResponsavel;
         return this;
     }
 
-    public Solicitacao dataSolicitacao(Date dataSolicitacao) {
+    public Solicitacao dataSolicitacao(long dataSolicitacao) {
         this.dataSolicitacao = dataSolicitacao;
         return this;
     }

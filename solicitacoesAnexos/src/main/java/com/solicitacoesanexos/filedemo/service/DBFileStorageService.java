@@ -1,5 +1,4 @@
 package com.solicitacoesanexos.filedemo.service;
-
 import com.solicitacoesanexos.filedemo.exception.FileStorageException;
 import com.solicitacoesanexos.filedemo.exception.MyFileNotFoundException;
 import com.solicitacoesanexos.filedemo.model.DBFile;
@@ -16,7 +15,7 @@ public class DBFileStorageService {
     @Autowired
     private DBFileRepository dbFileRepository;
 
-    public DBFile storeFile(MultipartFile file) {
+    public DBFile storeFile(MultipartFile file, int idSolicitacao) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -26,7 +25,7 @@ public class DBFileStorageService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes(), idSolicitacao);
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
