@@ -41,45 +41,13 @@ export default function Dashboard({ history }) {
         <button className="btn btn-new-solicitacao">Nova Solicitação</button>
       </Link>
 
-      <Table className="example">
-        <Thead>
-          <Tr>
-            <Th>Matricula</Th>
-            <Th>Grupo</Th>
-            <Th>Atividade</Th>
-            <Th>Data</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {solicitacoes.map(solicitacao => (
-            <Tr key={solicitacao.id}>
-              <Td>{solicitacao.matricula}</Td>
-              <Td>{solicitacao.grupo}</Td>
-              <Td>{solicitacao.atividade}</Td>
-              <Td>
-                <Link to={"/avaliar"}>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      localStorage.setItem("solicitacaoId", solicitacao.id)
-                    }
-                    className="btn-edit"
-                  >
-                    <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </button>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => handleSubmitToDelete(solicitacao.id)}
-                  className="btn-delete"
-                >
-                  <i className="fa fa-trash" aria-hidden="true"></i>
-                </button>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
+      <Link to="/visualizar">
+        <button className="btn btn-new-solicitacao">Visualizar Solicitações</button>
+      </Link>
+
+    
+    
+      
     </>
   );
 }

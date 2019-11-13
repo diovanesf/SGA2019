@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import api from "../../services/api";
 import _ from "lodash";
 
@@ -14,58 +14,56 @@ export default function Solicitar({ history }) {
   const [matricula, setMatricula] = useState("");
   const [grupo, setGrupo] = useState("");
   const [atividade, setAtividade] = useState("");
-  const [nomeResponsavel, setNomeResponsavel] = useState("");
-  const [localAtividade, setLocalAtividade] = useState("");
-  const [periodoAtividadeInicio, setPeriodoAtividadeInicio] = useState("");
-  const [periodoAtividadeFinal, setPeriodoAtividadeFinal] = useState("");
-  const [cargaHorariaAtividade, setCargaHorariaAtividade] = useState("");
+  const [professorResponsavel, setProfessorResponsavel] = useState("");
+  const [dataInicioAtividade, setDataInicioAtividade] = useState("");
+  const [dataFimAtividade, setDataFimAtividade] = useState("");
+  const [cargaHorariaAproveitada, setCargaHorariaAproveitada] = useState("");
   const [cargaHorariaSolicitada, setCargaHorariaSolicitada] = useState("");
   const [descricaoAtividade, setDescricaoAtividade] = useState("");
-  const [data, setData] = useState("");
-  const [documentosEnv, setDocumentosEnv] = useState([]);
+  const [curriculo, setCurriculo] = useState("");
+  const [dataSolicitacao] = useState("")
 
   useEffect(() => {
-    api.get("solicitacao/buscarGrupos").then(response => {
+    api.get("/buscarGrupos/").then(response => {
       setGrupos(response.data);
-    });
+    }).catch(e=>console.log("error", e.response));
   }, []);
   useEffect(() => {
-    api.get("solicitacao/buscaratividades").then(response => {
+    api.get("/buscarAtividades/").then(response => {
       setAtividades(response.data);
     });
   }, [grupos, grupo]);
 
   const setarDocumentos = event => {
     setAtividade(event.target.value);
-    setDocumentos(event.target.value.docsNecessarios.split(","));
-    console.log(atividade);
-    console.log(documentos);
-  };
+    setDocumentos(event.target.value.docsNecessarios.split(','))
+    console.log(atividade)
+    console.log(documentos)
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(solicitante);
+    console.log(solicitante)
 
     try {
-      await api.post("/solicitacao/salvar", {
+      await api.post("/solicitacao", {
         solicitante,
         matricula,
         grupo,
         atividade,
-        nomeResponsavel,
-        localAtividade,
-        periodoAtividadeInicio,
-        periodoAtividadeFinal,
-        cargaHorariaAtividade,
+        professorResponsavel,
+        dataInicioAtividade,
+        dataFimAtividade,
+        cargaHorariaAproveitada,
         cargaHorariaSolicitada,
         descricaoAtividade,
-        data,
-        documentosEnv
+        curriculo,
+        dataSolicitacao
       });
       history.push("/");
     } catch (e) {
       alert(
-        "Um erro na solicitação, verifique os dados informados e tente novamente!"
+        "Erro na solicitação! Verifique os seus dados e tente novamente."
       );
     }
   }
@@ -78,27 +76,59 @@ export default function Solicitar({ history }) {
       </p>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="solicitante">Solicitante *</label>
-        <input
-          id="solicitante"
-          name="nolicitanteome"
-          type="text"
-          placeholder="Solicitante"
-          value={solicitante}
-          required
-          onChange={event => setSolicitante(event.target.value)}
-        />
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
 
-        <label htmlFor="matricula">Matrícula *</label>
-        <input
-          id="matricula"
-          name="matricula"
-          type="number"
-          placeholder="Matricula"
-          value={matricula}
-          required
-          onChange={event => setMatricula(event.target.value)}
-        />
+            <label htmlFor="nome">Nome *</label>
+            <input
+              id="solicitante"
+              name="solicitante"
+              type="text"
+              placeholder="Solicitante"
+              value={solicitante}
+              required
+              onChange={event => setSolicitante(event.target.value)}
+              style={{
+                color: "white"
+              }}
+            />
+          </div>
+
+          
+
+          <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
+
+            <label htmlFor="matricula">Matrícula *</label>
+            <input
+              id="matricula"
+              name="matricula"
+              type="text"
+              placeholder="Matricula"
+              value={matricula}
+              required
+              onChange={event => setMatricula(event.target.value)}
+              style={{
+                color: "black"
+              }}
+            />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
+          <label htmlFor="curriculo">Currículo *</label>
+        <select
+          id="curriculo"
+          name="curriculo"
+          // required
+          value={curriculo}
+          
+        >
+          <option value="" disabled>
+            Selecione um currículo
+          </option>
+           <option value='2010'>2010</option>;
+           <option value='2010'>2018</option>;
+        </select>
+        </div>
+        </div>
 
         <label htmlFor="grupo">Grupo *</label>
         <select
@@ -110,11 +140,11 @@ export default function Solicitar({ history }) {
             setGrupo(e.target.value);
           }}
         >
-          <option selected disabled>
+          <option disabled value=''>
             Selecione um grupo
           </option>
           {_.map(grupos, (grupo, index) => {
-            return <option value={grupo.id}>{grupo.nome}</option>;
+            return <option value={grupo.id}>{grupo.nomeGrupo}</option>;
           })}
         </select>
 
@@ -124,70 +154,61 @@ export default function Solicitar({ history }) {
           name="atividade"
           // required
           value={atividade}
-          onChange={setarDocumentos}
+          onChange={
+            setarDocumentos
+          }
         >
-          <option selected disabled>
+          <option value="" disabled>
             Selecione uma atividade
           </option>
           {_.map(atividades, (atividade, index) => {
-            return <option value={atividade.id}>{atividade.nome}</option>;
+            return <option value={atividade.id}>{atividade.nomeAtividade}</option>;
           })}
         </select>
 
-        <label htmlFor="nomeResponsavel">Professor(a) responsável *</label>
+        <label htmlFor="professorResponsavel">Professor(a) responsável *</label>
         <input
-          id="nomeResponsavel"
-          name="nomeResponsavel"
+          id="professorResponsavel"
+          name="professorResponsavel"
           type="text"
           placeholder="Professor(a) responsável"
-          value={nomeResponsavel}
+          value={professorResponsavel}
           required
-          onChange={event => setNomeResponsavel(event.target.value)}
+          onChange={event => setProfessorResponsavel(event.target.value)}
         />
 
-        <label htmlFor="localAtividade">Local da Atividade *</label>
+        <label htmlFor="dataInicioAtividade">Período da atividade *</label>
         <input
-          id="localAtividade"
-          name="localAtividade"
-          type="text"
-          placeholder="Local da Atividade"
-          value={localAtividade}
-          required
-          onChange={event => setLocalAtividade(event.target.value)}
-        />
-
-        <label htmlFor="periodoAtividadeInicio">Período da atividade *</label>
-        <input
-          id="periodoAtividadeInicio"
-          name="periodoAtividadeInicio"
+          id="dataInicioAtividade"
+          name="dataInicioAtividade"
           type="date"
           placeholder="Período da atividade inicio"
-          value={periodoAtividadeInicio}
+          value={dataInicioAtividade}
           required
-          onChange={event => setPeriodoAtividadeInicio(event.target.value)}
+          onChange={event => setDataInicioAtividade(event.target.value)}
         />
-        <label htmlFor="periodoAtividadeInicio">Até</label>
+        <label htmlFor="dataInicioAtividade">Até</label>
         <input
-          id="periodoAtividadeFinal"
-          name="periodoAtividadeFinal"
+          id="dataFimAtividade"
+          name="dataFimAtividade"
           type="date"
-          placeholder="Período da atividade final"
-          value={periodoAtividadeFinal}
+          placeholder="Data final da atividade"
+          value={dataFimAtividade}
           required
-          onChange={event => setPeriodoAtividadeFinal(event.target.value)}
+          onChange={event => setDataFimAtividade(event.target.value)}
         />
 
-        <label htmlFor="cargaHorariaAtividade">
+        <label htmlFor="cargaHorariaAproveitada">
           Carga-horária da atividade *
         </label>
         <input
-          id="cargaHorariaAtividade"
-          name="cargaHorariaAtividade"
+          id="cargaHorariaAproveitada"
+          name="cargaHorariaAproveitada"
           type="number"
-          placeholder="Carga-horária da atividade"
-          value={cargaHorariaAtividade}
+          placeholder="Carga horária a ser aproveitada"
+          value={cargaHorariaAproveitada}
           required
-          onChange={event => setCargaHorariaAtividade(event.target.value)}
+          onChange={event => setCargaHorariaAproveitada(event.target.value)}
         />
 
         <label htmlFor="cargaHorariaSolicitada">
@@ -197,7 +218,7 @@ export default function Solicitar({ history }) {
           id="cargaHorariaSolicitada"
           name="cargaHorariaSolicitada"
           type="number"
-          placeholder="Carga-horária solicitada"
+          placeholder="Carga horária a ser solicitada"
           value={cargaHorariaSolicitada}
           required
           onChange={event => setCargaHorariaSolicitada(event.target.value)}
@@ -216,34 +237,18 @@ export default function Solicitar({ history }) {
 
         <label htmlFor="documento">Comprovante *</label>
         {_.map(documentos, (documento, index) => {
-          return (
-            <input
-              id={documento.nome}
-              name={documento.nome}
-              type="file"
-              placeholder="Comprovante"
-              value={documento}
-              required
-              onChange={event => setDocumentosEnv(event.target.value)}
-            />
-          );
+       
         })}
 
-        <button type="submit" className="btn btn-add">
+
+        <button type="submit" className="btn btn-aadd">
           Solicitar
         </button>
+
       </form>
       <Link to="/">
-        <button className="btn btn-add">
-          <a
-            href="/"
-            style={{
-              textDecoration: "none",
-              color: "white"
-            }}
-          >
-            Voltar
-          </a>
+        <button className="btn btn-aadd"  >
+          Voltar
         </button>
       </Link>
     </>

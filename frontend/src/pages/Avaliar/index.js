@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import api from "../../services/api";
-import _ from "lodash";
 
-export default function Solicitar({ history }) {
-  // listas de grupos e atividades
-  const [grupos, setGrupos] = useState([]);
-  const [atividades, setAtividades] = useState([]);
-  const [documentos, setDocumentos] = useState([]);
-
-  // dados para criar a solicitação
-  const [solicitante, setSolicitante] = useState("");
+export default function Avaliar({ history }) {
+  //Dados da solicitacao exibidos
+  const [nome, setNome] = useState("");
   const [matricula, setMatricula] = useState("");
   const [grupo, setGrupo] = useState("");
   const [atividade, setAtividade] = useState("");
@@ -21,51 +14,57 @@ export default function Solicitar({ history }) {
   const [cargaHorariaAtividade, setCargaHorariaAtividade] = useState("");
   const [cargaHorariaSolicitada, setCargaHorariaSolicitada] = useState("");
   const [descricaoAtividade, setDescricaoAtividade] = useState("");
-  const [data] = useState("");
-  const [documentosEnv, setDocumentosEnv] = useState([]);
+  const [data, setData] = useState("");
+  const [documento, setDocumento] = useState("");
+
+  //Dados da avaliação
+  const [deferimentoResultado, setDeferimentoResultado] = useState("");
+  const [parecerCoordenador, setParecerCoordenador] = useState("");
+  const [cargaHorariaAtribuida, setCargaHorariaAtribuida] = useState("");
 
   useEffect(() => {
-    api.get("grupos").then(response => {
-      setGrupos(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    api.get("atividades").then(response => {
-      setAtividades(response.data);
-    });
-  }, [grupos, grupo]);
+    async function getData() {
+      const response = await api.get(
+        "/solicitacoes/" + localStorage.getItem("solicitacaoId")
+      );
+      setNome(response.data.nome);
+      setMatricula(response.data.matricula);
+      setGrupo(response.data.grupo);
+      setAtividade(response.data.atividade);
+      setNomeResponsavel(response.data.nomeResponsavel);
+      setLocalAtividade(response.data.localAtividade);
+      setPeriodoAtividadeInicio(response.data.periodoAtividadeInicio);
+      setPeriodoAtividadeFinal(response.data.periodoAtividadeFinal);
+      setCargaHorariaAtividade(response.data.cargaHorariaAtividade);
+      setCargaHorariaSolicitada(response.data.cargaHorariaSolicitada);
+      setDescricaoAtividade(response.data.descricaoAtividade);
+      setData(response.data.data);
+      setDocumento(response.data.documento);
+    }
 
-  const setarDocumentos = event => {
-    setAtividade(event.target.value);
-    setDocumentos(event.target.value.docsNecessarios.split(","));
-    console.log(atividade);
-    console.log(documentos);
-  };
+    getData();
+  });
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(solicitante);
 
     try {
-      await api.post("/solicitacao", {
-        solicitante,
-        matricula,
-        grupo,
-        atividade,
-        nomeResponsavel,
-        localAtividade,
-        periodoAtividadeInicio,
-        periodoAtividadeFinal,
-        cargaHorariaAtividade,
-        cargaHorariaSolicitada,
-        descricaoAtividade,
-        data,
-        documentosEnv
-      });
-      history.push("/");
+      const response = await api.post(
+        "/avaliacoes/" + localStorage.getItem("solicitacaoId"),
+        {
+          deferimentoResultado,
+          parecerCoordenador,
+          cargaHorariaAtribuida
+        }
+      );
+
+      if (response.status === 200) {
+        history.push("/");
+      }
     } catch (e) {
       alert(
-        "Um erro na solicitação, verifique os dados informados e tente novamente!"
+        "Ocorreu um erro no cadastro! Verifique os dados informados e tente novamente.",
+        e
       );
     }
   }
@@ -73,99 +72,90 @@ export default function Solicitar({ history }) {
   return (
     <>
       <p>
-        Efetue aqui sua solicitação para aproveitamento de{" "}
-        <strong>ACG's</strong>.
+        Avalie aqui a sua solicitação de <strong>{nome}</strong>matrícula.{" "}
+        <strong>{matricula}</strong>
       </p>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="solicitante">Solicitante *</label>
+        <label htmlFor="data">Data</label>
         <input
-          id="solicitante"
-          name="nolicitanteome"
+          id="data"
+          name="data"
           type="text"
-          placeholder="Solicitante"
-          value={solicitante}
-          required
-          onChange={event => setSolicitante(event.target.value)}
+          placeholder={data}
+          value={data}
+          disabled
         />
-
+        <label htmlFor="nome">Nome *</label>
+        <input
+          id="nome"
+          name="nome"
+          type="text"
+          placeholder={nome}
+          value={nome}
+          disabled
+        />
         <label htmlFor="matricula">Matrícula *</label>
         <input
           id="matricula"
           name="matricula"
           type="number"
-          placeholder="Matricula"
+          placeholder={matricula}
           value={matricula}
-          required
-          onChange={event => setMatricula(event.target.value)}
+          disabled
         />
-
         <label htmlFor="grupo">Grupo *</label>
-        <select
+        <input
           id="grupo"
           name="grupo"
+          type="text"
+          placeholder={grupo}
           value={grupo}
-          // required
-          onChange={e => {
-            setGrupo(e.target.value);
-          }}
-        >
-          <option selected disabled>
-            Selecione um grupo
-          </option>
-          {_.map(grupos, (grupo, index) => {
-            return <option value={grupo.id}>{grupo.nome}</option>;
-          })}
-        </select>
-
+        />
         <label htmlFor="atividade">Atividade *</label>
-        <select
+        <input
           id="atividade"
           name="atividade"
-          // required
+          type="text"
+          placeholder={atividade}
           value={atividade}
-          onChange={setarDocumentos}
-        >
-          <option selected disabled>
-            Selecione uma atividade
-          </option>
-          {_.map(atividades, (atividade, index) => {
-            return <option value={atividade.id}>{atividade.nome}</option>;
-          })}
-        </select>
-
-        <label htmlFor="localAtividade">Local da Atividade *</label>
+        />
+        <label htmlFor="nomeResponsavel">Professor(a) responsável *</label>
+        <input
+          id="nomeResponsavel"
+          name="nomeResponsavel"
+          type="text"
+          placeholder={nomeResponsavel}
+          value={nomeResponsavel}
+          disabled
+        />
+        <label htmlFor="localAtividade">Local da atividade *</label>
         <input
           id="localAtividade"
           name="localAtividade"
           type="text"
-          placeholder="Local da Atividade"
+          placeholder={localAtividade}
           value={localAtividade}
-          required
-          onChange={event => setLocalAtividade(event.target.value)}
+          disabled
         />
-
         <label htmlFor="periodoAtividadeInicio">Período da atividade *</label>
         <input
           id="periodoAtividadeInicio"
           name="periodoAtividadeInicio"
           type="date"
-          placeholder="Período da atividade inicio"
+          placeholder={periodoAtividadeInicio}
           value={periodoAtividadeInicio}
-          required
-          onChange={event => setPeriodoAtividadeInicio(event.target.value)}
+          disabled
         />
         <label htmlFor="periodoAtividadeInicio">Até</label>
         <input
           id="periodoAtividadeFinal"
           name="periodoAtividadeFinal"
           type="date"
-          placeholder="Período da atividade final"
+          placeholder={periodoAtividadeFinal}
           value={periodoAtividadeFinal}
-          required
-          onChange={event => setPeriodoAtividadeFinal(event.target.value)}
+          disabled
         />
-
         <label htmlFor="cargaHorariaAtividade">
           Carga-horária da atividade *
         </label>
@@ -173,12 +163,10 @@ export default function Solicitar({ history }) {
           id="cargaHorariaAtividade"
           name="cargaHorariaAtividade"
           type="number"
-          placeholder="Carga-horária da atividade"
+          placeholder={cargaHorariaAtividade}
           value={cargaHorariaAtividade}
-          required
-          onChange={event => setCargaHorariaAtividade(event.target.value)}
+          disabled
         />
-
         <label htmlFor="cargaHorariaSolicitada">
           Carga-horária solicitada *
         </label>
@@ -186,55 +174,101 @@ export default function Solicitar({ history }) {
           id="cargaHorariaSolicitada"
           name="cargaHorariaSolicitada"
           type="number"
-          placeholder="Carga-horária solicitada"
+          placeholder={cargaHorariaSolicitada}
           value={cargaHorariaSolicitada}
-          required
-          onChange={event => setCargaHorariaSolicitada(event.target.value)}
+          disabled
         />
-
         <label htmlFor="descricaoAtividade">Descrição da atividade *</label>
         <input
           id="descricaoAtividade"
           name="descricaoAtividade"
           type="text"
-          placeholder="Descrição da atividade"
+          placeholder={descricaoAtividade}
           value={descricaoAtividade}
-          required
-          onChange={event => setDescricaoAtividade(event.target.value)}
+          disabled
         />
-
         <label htmlFor="documento">Comprovante *</label>
-        {_.map(documentos, (documento, index) => {
-          return (
-            <input
-              id={documento.nome}
-              name={documento.nome}
-              type="file"
-              placeholder="Comprovante"
-              value={documento}
-              required
-              onChange={event => setDocumentosEnv(event.target.value)}
-            />
-          );
-        })}
 
+       Anexe aqui documentos comprobatórios das suas atividades complementares. 
+       
+        <input
+          id="documento"
+          name="documento"
+          type="file"
+          placeholder={documento}
+          value={documento}
+          disabled
+
+        />
+        <div className="content3">
+          
+          <center>
+            <label htmlFor="deferimentoResultado">
+              Status da ACG *
+            
+            </label>
+            
+            <br/>
+            <label>Deferido</label>
+            <input
+              type="radio"
+              name="deferimentoResultado"
+              value="Deferido"
+              required
+              onChange={event => setDeferimentoResultado(event.target.value)}
+            />
+            <label>Indeferido</label>
+            <input
+              type="radio"
+              name="deferimentoResultado"
+              value="Indeferido"
+              required
+              onChange={event => setDeferimentoResultado(event.target.value)}
+            />
+            <br />
+            <label htmlFor="parecerCoordenador">Parecer do Coordenador *</label>
+            <br />
+            <input
+              id="parecerCoordenador"
+              name="parecerCoordenador"
+              type="text"
+              placeholder=""
+              value={parecerCoordenador}
+              required
+              onChange={event => setParecerCoordenador(event.target.value)}
+            />
+            <br />
+            <label htmlFor="cargaHorariaAtribuida">
+              Carga Horária Atribuída *
+            </label>
+            <br />
+            <input
+              id="cargaHorariaAtribuida"
+              name="cargaHorariaAtribuida"
+              type="number"
+              placeholder=""
+              value={cargaHorariaAtribuida}
+              required
+              onChange={event => setCargaHorariaAtribuida(event.target.value)}
+            />
+          </center>
+        </div>
         <button type="submit" className="btn btn-add">
-          Solicitar
+          Avaliar
         </button>
-      </form>
-      <Link to="/">
         <button className="btn btn-add">
+          {" "}
           <a
-            href="/"
             style={{
               textDecoration: "none",
               color: "white"
             }}
+            href="/"
           >
             Voltar
           </a>
         </button>
-      </Link>
+      </form>
     </>
   );
 }

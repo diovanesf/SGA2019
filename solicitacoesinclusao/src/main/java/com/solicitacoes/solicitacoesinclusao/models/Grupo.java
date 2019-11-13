@@ -26,6 +26,9 @@ public Grupo(long id, String nomeGrupo){
 this.id = id;
 this.nomeGrupo = nomeGrupo;
 }
+
+    public Grupo() {
+    }
 public void setId(long id) {
     this.id = id;
 }
