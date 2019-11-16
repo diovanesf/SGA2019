@@ -12,13 +12,13 @@ import java.util.List;
  * SolicitacaoResource
  */
 @RestController
-@RequestMapping("/solicitacao")
+@RequestMapping("/")
 public class SolicitacaoResource {
 
     @Autowired
     SolicitacaoRepository solicitacaoRepository;
 
-     @GetMapping(value="/listarTudo")
+     @GetMapping(value="/consultar")
      public List<Solicitacao> listaSolicitacoes(){
          return solicitacaoRepository.findAll();
      }

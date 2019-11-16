@@ -2,6 +2,7 @@ package com.solicitacoes.solicitacoesinclusao.resources;
 
 import com.solicitacoes.solicitacoesinclusao.models.Solicitacao;
 import com.solicitacoes.solicitacoesinclusao.models.Grupo;
+
 import com.solicitacoes.solicitacoesinclusao.models.Atividade;
 import com.solicitacoes.solicitacoesinclusao.repositories.SolicitacaoRepository;
 import com.solicitacoes.solicitacoesinclusao.repositories.GrupoRepository;
@@ -31,9 +32,8 @@ public class SolicitacaoResource {
  
     @CrossOrigin
     @PostMapping(value="/salvar")
-    public Solicitacao salvaSolicitacao(@RequestBody Solicitacao solicitacao, Atividade atividade, Grupo grupo){
-        atividade.setGrupo(grupo);
-        solicitacao.setAtividade(atividade);
+    public Solicitacao salvaSolicitacao(@RequestBody Solicitacao solicitacao){
+        
         return solicitacaoRepository.save(solicitacao);
     }
 

@@ -5,7 +5,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import "./index.css";
 
-import api from "../../services/api";
+import apiConsulta from "../../services/apiConsulta";
 
 export default function Dashboard({ history }) {
   const [visualizar, setVisualizar] = useState([]);
@@ -30,7 +30,7 @@ export default function Dashboard({ history }) {
               <Td>{visualizar.grupo}</Td>
               <Td>{visualizar.atividade}</Td>
               <Td>
-                <Link to={"/visualizar"}>
+                <Link to={"/consultar"}>
                   <button
                     type="button"
                     //onClick={() =>

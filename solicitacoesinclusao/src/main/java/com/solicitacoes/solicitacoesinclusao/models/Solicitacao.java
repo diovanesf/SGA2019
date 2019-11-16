@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Solicitacao
@@ -24,70 +25,27 @@ private static final long serialVersionUID = 1L;
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)    
 private long id;
-@NotNull(message = "É obrigatório selecionar uma atividade")
-private Atividade atividade;
-@NotNull(message = "É obrigatório selecionar um grupo")
-private Grupo grupo;
 @NotNull(message = "É obrigatório informar o nome do Solicitante")
 private String solicitante;
 @Range(min = 9, message = "A matrícula é inválida.")
 @NotNull(message = "A matrícula é obrigatória")
 private int matricula; 
-@NotNull(message = "É obrigatório informar o currículo")
-private String curriculo;
-@JsonFormat
+//@NotNull(message = "É obrigatório informar o currículo")
+private String grupo; 
+private String atividade;
+@NotNull(message = "É obrigatório informar a data de início das atividades")
+@JsonFormat()
 private Date dataInicioAtividade;
-@JsonFormat
+@NotNull(message = "É obrigatório informar a data de fim das atividades")
+@JsonFormat()
 private Date dataFimAtividade;
 @NotNull(message = "É obrigatório informar a descrição da atividade feita")
 private String descricaoAtividade;
 @NotNull(message = "É obrigatório informar uma carga horária a ser solicitada")
 private int cargaHorariaSolicitada;
+@NotNull(message = "É obrigatório informar o professor responsável")
 private String professorResponsavel;
-
-    public Solicitacao(long id, Atividade atividade, Grupo grupo, String solicitante, int matricula, String curriculo, Date dataInicioAtividade, Date dataFimAtividade, String descricaoAtividade, int cargaHorariaSolicitada, String professorResponsavel, Date dataSolicitacao, int cargaHorariaAproveitada, String observacoesAnexos, int status) {
-        this.id = id;
-        this.atividade = atividade;
-        this.grupo = grupo;
-        this.solicitante = solicitante;
-        this.matricula = matricula;
-        this.curriculo = curriculo;
-        this.dataInicioAtividade = dataInicioAtividade;
-        this.dataFimAtividade = dataFimAtividade;
-        this.descricaoAtividade = descricaoAtividade;
-        this.cargaHorariaSolicitada = cargaHorariaSolicitada;
-        this.professorResponsavel = professorResponsavel;
-        this.dataSolicitacao = dataSolicitacao;
-        this.cargaHorariaAproveitada = cargaHorariaAproveitada;
-        this.observacoesAnexos = observacoesAnexos;
-        this.status = status;
-    }
-
-    public String getProfessorResponsavel() {
-        return this.professorResponsavel;
-    }
-
-    public void setProfessorResponsavel(String professorResponsavel) {
-        this.professorResponsavel = professorResponsavel;
-    }
-
-    public Date getDataSolicitacao() {
-        return this.dataSolicitacao;
-    }
-
-    public void setDataSolicitacao(Date dataSolicitacao) {
-        this.dataSolicitacao = dataSolicitacao;
-    }
-
-    public Solicitacao professorResponsavel(String professorResponsavel) {
-        this.professorResponsavel = professorResponsavel;
-        return this;
-    }
-
-    public Solicitacao dataSolicitacao(Date dataSolicitacao) {
-        this.dataSolicitacao = dataSolicitacao;
-        return this;
-    }
+@DateTimeFormat(pattern = "dd/MM/yyyy")
 private Date dataSolicitacao;
 private int cargaHorariaAproveitada;
 private String observacoesAnexos;
@@ -97,17 +55,18 @@ private int status;
     public Solicitacao() {
     }
 
-    public Solicitacao(long id, Atividade atividade, Grupo grupo, String solicitante, int matricula, String curriculo, Date dataInicioAtividade, Date dataFimAtividade, String descricaoAtividade, int cargaHorariaSolicitada, int cargaHorariaAproveitada, String observacoesAnexos, int status) {
+    public Solicitacao(long id, String solicitante, int matricula, String grupo, String atividade, Date dataInicioAtividade, Date dataFimAtividade, String descricaoAtividade, int cargaHorariaSolicitada, String professorResponsavel, Date dataSolicitacao, int cargaHorariaAproveitada, String observacoesAnexos, int status) {
         this.id = id;
-        this.atividade = atividade;
-        this.grupo = grupo;
         this.solicitante = solicitante;
         this.matricula = matricula;
-        this.curriculo = curriculo;
+        this.grupo = grupo;
+        this.atividade = atividade;
         this.dataInicioAtividade = dataInicioAtividade;
         this.dataFimAtividade = dataFimAtividade;
         this.descricaoAtividade = descricaoAtividade;
         this.cargaHorariaSolicitada = cargaHorariaSolicitada;
+        this.professorResponsavel = professorResponsavel;
+        this.dataSolicitacao = dataSolicitacao;
         this.cargaHorariaAproveitada = cargaHorariaAproveitada;
         this.observacoesAnexos = observacoesAnexos;
         this.status = status;
@@ -119,22 +78,6 @@ private int status;
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Atividade getAtividade() {
-        return this.atividade;
-    }
-
-    public void setAtividade(Atividade atividade) {
-        this.atividade = atividade;
-    }
-
-    public Grupo getGrupo() {
-        return this.grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
     }
 
     public String getSolicitante() {
@@ -153,12 +96,20 @@ private int status;
         this.matricula = matricula;
     }
 
-    public String getCurriculo() {
-        return this.curriculo;
+    public String getGrupo() {
+        return this.grupo;
     }
 
-    public void setCurriculo(String curriculo) {
-        this.curriculo = curriculo;
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
+
+    public String getAtividade() {
+        return this.atividade;
+    }
+
+    public void setAtividade(String atividade) {
+        this.atividade = atividade;
     }
 
     public Date getDataInicioAtividade() {
@@ -193,6 +144,22 @@ private int status;
         this.cargaHorariaSolicitada = cargaHorariaSolicitada;
     }
 
+    public String getProfessorResponsavel() {
+        return this.professorResponsavel;
+    }
+
+    public void setProfessorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
+    }
+
+    public Date getDataSolicitacao() {
+        return this.dataSolicitacao;
+    }
+
+    public void setDataSolicitacao(Date dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
+    }
+
     public int getCargaHorariaAproveitada() {
         return this.cargaHorariaAproveitada;
     }
@@ -222,16 +189,6 @@ private int status;
         return this;
     }
 
-    public Solicitacao atividade(Atividade atividade) {
-        this.atividade = atividade;
-        return this;
-    }
-
-    public Solicitacao grupo(Grupo grupo) {
-        this.grupo = grupo;
-        return this;
-    }
-
     public Solicitacao solicitante(String solicitante) {
         this.solicitante = solicitante;
         return this;
@@ -242,8 +199,13 @@ private int status;
         return this;
     }
 
-    public Solicitacao curriculo(String curriculo) {
-        this.curriculo = curriculo;
+    public Solicitacao grupo(String grupo) {
+        this.grupo = grupo;
+        return this;
+    }
+
+    public Solicitacao atividade(String atividade) {
+        this.atividade = atividade;
         return this;
     }
 
@@ -264,6 +226,16 @@ private int status;
 
     public Solicitacao cargaHorariaSolicitada(int cargaHorariaSolicitada) {
         this.cargaHorariaSolicitada = cargaHorariaSolicitada;
+        return this;
+    }
+
+    public Solicitacao professorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
+        return this;
+    }
+
+    public Solicitacao dataSolicitacao(Date dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
         return this;
     }
 
@@ -290,34 +262,33 @@ private int status;
             return false;
         }
         Solicitacao solicitacao = (Solicitacao) o;
-        return id == solicitacao.id && Objects.equals(atividade, solicitacao.atividade) && Objects.equals(grupo, solicitacao.grupo) && Objects.equals(solicitante, solicitacao.solicitante) && matricula == solicitacao.matricula && Objects.equals(curriculo, solicitacao.curriculo) && Objects.equals(dataInicioAtividade, solicitacao.dataInicioAtividade) && Objects.equals(dataFimAtividade, solicitacao.dataFimAtividade) && Objects.equals(descricaoAtividade, solicitacao.descricaoAtividade) && cargaHorariaSolicitada == solicitacao.cargaHorariaSolicitada && cargaHorariaAproveitada == solicitacao.cargaHorariaAproveitada && Objects.equals(observacoesAnexos, solicitacao.observacoesAnexos) && status == solicitacao.status;
+        return id == solicitacao.id && Objects.equals(solicitante, solicitacao.solicitante) && matricula == solicitacao.matricula && Objects.equals(grupo, solicitacao.grupo) && Objects.equals(atividade, solicitacao.atividade) && Objects.equals(dataInicioAtividade, solicitacao.dataInicioAtividade) && Objects.equals(dataFimAtividade, solicitacao.dataFimAtividade) && Objects.equals(descricaoAtividade, solicitacao.descricaoAtividade) && cargaHorariaSolicitada == solicitacao.cargaHorariaSolicitada && Objects.equals(professorResponsavel, solicitacao.professorResponsavel) && Objects.equals(dataSolicitacao, solicitacao.dataSolicitacao) && cargaHorariaAproveitada == solicitacao.cargaHorariaAproveitada && Objects.equals(observacoesAnexos, solicitacao.observacoesAnexos) && status == solicitacao.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, atividade, grupo, solicitante, matricula, curriculo, dataInicioAtividade, dataFimAtividade, descricaoAtividade, cargaHorariaSolicitada, cargaHorariaAproveitada, observacoesAnexos, status);
+        return Objects.hash(id, solicitante, matricula, grupo, atividade, dataInicioAtividade, dataFimAtividade, descricaoAtividade, cargaHorariaSolicitada, professorResponsavel, dataSolicitacao, cargaHorariaAproveitada, observacoesAnexos, status);
     }
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", atividade='" + getAtividade() + "'" +
-            ", grupo='" + getGrupo() + "'" +
             ", solicitante='" + getSolicitante() + "'" +
             ", matricula='" + getMatricula() + "'" +
-            ", curriculo='" + getCurriculo() + "'" +
+            ", grupo='" + getGrupo() + "'" +
+            ", atividade='" + getAtividade() + "'" +
             ", dataInicioAtividade='" + getDataInicioAtividade() + "'" +
             ", dataFimAtividade='" + getDataFimAtividade() + "'" +
             ", descricaoAtividade='" + getDescricaoAtividade() + "'" +
             ", cargaHorariaSolicitada='" + getCargaHorariaSolicitada() + "'" +
+            ", professorResponsavel='" + getProfessorResponsavel() + "'" +
+            ", dataSolicitacao='" + getDataSolicitacao() + "'" +
             ", cargaHorariaAproveitada='" + getCargaHorariaAproveitada() + "'" +
             ", observacoesAnexos='" + getObservacoesAnexos() + "'" +
             ", status='" + getStatus() + "'" +
             "}";
     }
 
-
-   
 
 }

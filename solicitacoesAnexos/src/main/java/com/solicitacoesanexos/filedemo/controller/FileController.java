@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/solicitacao")
+@RequestMapping("/")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

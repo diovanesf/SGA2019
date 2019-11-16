@@ -20,8 +20,7 @@ export default function Solicitar({ history }) {
   const [cargaHorariaAproveitada, setCargaHorariaAproveitada] = useState("");
   const [cargaHorariaSolicitada, setCargaHorariaSolicitada] = useState("");
   const [descricaoAtividade, setDescricaoAtividade] = useState("");
-  const [curriculo, setCurriculo] = useState("");
-  const [dataSolicitacao] = useState("")
+  const [files] = useState("");
 
   useEffect(() => {
     api.get("/buscarGrupos/").then(response => {
@@ -36,17 +35,41 @@ export default function Solicitar({ history }) {
 
   const setarDocumentos = event => {
     setAtividade(event.target.value);
-    setDocumentos(event.target.value.docsNecessarios.split(','))
     console.log(atividade)
     console.log(documentos)
   }
+
+  
+  function uploadMultipleFiles(files) {
+    var formData = new FormData();
+    for(var index = 0; index < files.length; index++) {
+        formData.append("files", files[index]);
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "localhost:9692/uploadAnexos");
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
+        if(xhr.status == 200) {
+            for(var i = 0; i < response.length; i++) {
+                
+            }
+        } else {
+           
+        }
+    }
+
+    xhr.send(formData);
+}
 
   async function handleSubmit(event) {
     event.preventDefault();
     console.log(solicitante)
 
     try {
-      await api.post("/solicitacao", {
+      await api.post("/salvar/", {
         solicitante,
         matricula,
         grupo,
@@ -56,10 +79,9 @@ export default function Solicitar({ history }) {
         dataFimAtividade,
         cargaHorariaAproveitada,
         cargaHorariaSolicitada,
-        descricaoAtividade,
-        curriculo,
-        dataSolicitacao
+        descricaoAtividade
       });
+      uploadMultipleFiles(files);
       history.push("/");
     } catch (e) {
       alert(
@@ -112,22 +134,7 @@ export default function Solicitar({ history }) {
               }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '45%' }}>
-          <label htmlFor="curriculo">Currículo *</label>
-        <select
-          id="curriculo"
-          name="curriculo"
-          // required
-          value={curriculo}
-          
-        >
-          <option value="" disabled>
-            Selecione um currículo
-          </option>
-           <option value='2010'>2010</option>;
-           <option value='2010'>2018</option>;
-        </select>
-        </div>
+         
         </div>
 
         <label htmlFor="grupo">Grupo *</label>
@@ -144,7 +151,7 @@ export default function Solicitar({ history }) {
             Selecione um grupo
           </option>
           {_.map(grupos, (grupo, index) => {
-            return <option value={grupo.id}>{grupo.nomeGrupo}</option>;
+            return <option value={grupo.nomeGrupo}>{grupo.nomeGrupo}</option>;
           })}
         </select>
 
@@ -162,7 +169,7 @@ export default function Solicitar({ history }) {
             Selecione uma atividade
           </option>
           {_.map(atividades, (atividade, index) => {
-            return <option value={atividade.id}>{atividade.nomeAtividade}</option>;
+            return <option value={atividade.nomeAtividade}>{atividade.nomeAtividade}</option>;
           })}
         </select>
 
@@ -177,7 +184,7 @@ export default function Solicitar({ history }) {
           onChange={event => setProfessorResponsavel(event.target.value)}
         />
 
-        <label htmlFor="dataInicioAtividade">Período da atividade *</label>
+        <label htmlFor="dataInicioAtividade">Data de início da atividade *</label>
         <input
           id="dataInicioAtividade"
           name="dataInicioAtividade"
@@ -187,7 +194,7 @@ export default function Solicitar({ history }) {
           required
           onChange={event => setDataInicioAtividade(event.target.value)}
         />
-        <label htmlFor="dataInicioAtividade">Até</label>
+        <label htmlFor="dataFimAtividade">Data de fim da atividade</label>
         <input
           id="dataFimAtividade"
           name="dataFimAtividade"
@@ -235,10 +242,12 @@ export default function Solicitar({ history }) {
           onChange={event => setDescricaoAtividade(event.target.value)}
         />
 
-        <label htmlFor="documento">Comprovante *</label>
+        <label htmlFor="file">Comprovante *</label>
         {_.map(documentos, (documento, index) => {
        
         })}
+        <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />
+                        
 
 
         <button type="submit" className="btn btn-aadd">
