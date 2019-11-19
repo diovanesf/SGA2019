@@ -1,5 +1,0 @@
-Inicie o banco de dados(xampp)
-Abra a pasta back-end no terminal e digite "mvn spring-boot:run"
-Importe o arquivo "sistemadeacg.sql" para dentro do banco criado pelo Spring (pode só copiar o sql ou importar o arquivo)
-Abra a pasta front-end e execute "yarn install" ou "npm install"
-Após executar o comando acima, execute "yarn start" ou "npm start"
