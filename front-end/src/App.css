@@ -1,0 +1,27 @@
+body, html{
+  height: 100vh;
+}
+nav{
+  background: #009045;
+}
+.btn{
+  font-size: 16pt !important;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #00904544;
+}
+.form-control{
+  border-radius: 0px !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-color: #009045;
+}
+.form-control:active, .form-control:focus{
+  -webkit-appearance:none;
+  box-shadow: 0px 1px #009045 !important;
+}
+.fontSmall{
+  font-size: 1rem !important;
+  
+}
