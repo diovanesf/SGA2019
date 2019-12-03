@@ -1,4 +1,4 @@
-package br.sistema.sistemagdeacg.formulario;
+package br.sistema.sistemadeacg.formulario;
 
 import br.sistema.sistemadeacg.models.Solicitacao;
 import lombok.Data;

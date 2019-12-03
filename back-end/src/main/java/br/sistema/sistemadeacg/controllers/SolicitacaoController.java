@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.sistema.sistemadeacg.anexo.AnexoService;
-import br.sistema.sistemagdeacg.formulario.DadosSolicitacaoFormulario;
-import br.sistema.sistemagdeacg.formulario.SolicitacaoEnviaFormulario;
+import br.sistema.sistemadeacg.formulario.DadosSolicitacaoFormulario;
+import br.sistema.sistemadeacg.formulario.SolicitacaoEnviaFormulario;
 import br.sistema.sistemadeacg.models.Anexo;
 import br.sistema.sistemadeacg.models.Atividade;
 import br.sistema.sistemadeacg.models.Solicitacao;

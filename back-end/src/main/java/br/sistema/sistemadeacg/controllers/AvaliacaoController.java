@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import br.sistema.sistemagdeacg.formulario.AvaliacaoFormulario;
+import br.sistema.sistemadeacg.formulario.AvaliacaoFormulario;
 import br.sistema.sistemadeacg.models.Anexo;
 import br.sistema.sistemadeacg.models.AvaliacaoSolicitacao;
 import br.sistema.sistemadeacg.models.Solicitacao;
