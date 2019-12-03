@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sistema</groupId>
-	<artifactId>sistemag2</artifactId>
+	<artifactId>sistemadeacg</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sistemag2</name>
+	<name>sistemadeacg</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
