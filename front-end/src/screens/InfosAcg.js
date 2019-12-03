@@ -4,6 +4,7 @@ import { IoIosCloseCircleOutline, IoMdArrowRoundBack } from 'react-icons/io'
 import { Redirect, useParams } from 'react-router-dom'
 import _ from 'lodash'
 import api from '../services/api'
+import { parseDate } from '../services/parseDate'
 /*interface Solicitacao {
 	
 	private long matricula;
@@ -56,6 +57,7 @@ export function InfosAcg() {
 					>
 						<IoMdArrowRoundBack />
 					</Button>
+					{solicitacao.idSolicitacao?
 					<Table hover className='mt-3' responsive>
 						<tbody>
 							<tr>
@@ -81,11 +83,11 @@ export function InfosAcg() {
 							</tr>
 							<tr>
 								<td>Data de Início</td>
-								<td>{new Date(solicitacao.dataInicio).toLocaleDateString('pt-BR')}</td>
+								<td>{parseDate(solicitacao.dataInicio).toLocaleDateString('pt-BR')}</td>
 							</tr>
 							<tr>
 								<td>Data de Fim</td>
-								<td>{new Date(solicitacao.dataFim).toLocaleDateString('pt-BR')}</td>
+								<td>{parseDate(solicitacao.dataFim).toLocaleDateString('pt-BR')}</td>
 							</tr>
 							<tr>
 								<td>Carga Horária Soliciada</td>
@@ -93,7 +95,7 @@ export function InfosAcg() {
 							</tr>
 							<tr>
 								<td>Professor Responsável</td>
-								<td>{solicitacao.profRed}</td>
+								<td>{solicitacao.profRes}</td>
 							</tr>
 							<tr>
 								<td>Descrição da atividade</td>
@@ -142,7 +144,10 @@ export function InfosAcg() {
 						</tbody>
 					</Table>
 
-					<Button
+: <div className="d-flex justify-content-center">
+<h3>Buscando Informações</h3>
+</div>}
+<Button
 						variant='outline-success'
 						className='py-0 px-1'
 						onClick={() => {

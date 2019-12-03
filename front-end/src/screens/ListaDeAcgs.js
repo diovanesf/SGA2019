@@ -5,6 +5,7 @@ import { TiDocumentAdd, TiDocumentDelete, TiEyeOutline } from 'react-icons/ti'
 import { Redirect } from 'react-router-dom'
 import _ from 'lodash'
 import api from '../services/api'
+import {parseDate} from '../services/parseDate'
 export function ListaDeAcgs() {
 	const [redirectTo, setRedirectTo] = useState()
 
@@ -93,7 +94,7 @@ export function ListaDeAcgs() {
 							<tr>
 								<td>{value.matricula}</td>
 								<td>{value.atividade.descricao}</td>
-								<td>{new Date(value.dataAtual).toLocaleDateString('pt-BR')}</td>
+								<td>{parseDate(value.dataAtual).toLocaleDateString('pt-BR')}</td>
 								<td>{value.status}</td>
 								<td colSpan={2}>
 									<div className='d-flex flex-row justify-content-space-around'></div>

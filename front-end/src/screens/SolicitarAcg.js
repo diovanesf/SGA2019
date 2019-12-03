@@ -27,7 +27,7 @@ export function SolicitarAcg() {
 	const [atividadeIndex, setAtividadeIndex] = useState()
 	const [atividadeObj, setAtividadeObj] = useState({})
 
-	const [matricula, setMatricula] = useState(1123)
+	const [matricula, setMatricula] = useState()
 	const [aluno, setAluno] = useState()
 	const [local, setLocal] = useState()
 	const [dataInicio, setDataInicio] = useState()
@@ -41,6 +41,7 @@ export function SolicitarAcg() {
 		api.get('grupos')
 			.then((r) => {
 				console.log(r)
+				
 				setGrupos(r.data)
 			})
 			.catch((e) => {
@@ -49,6 +50,8 @@ export function SolicitarAcg() {
 			})
 	}, [])
 	useEffect(() => {
+		setAtividadeIndex()
+		setAtividadeObj({})
 		api.get(`atividades/porGrupo/${grupo}`)
 			.then((r) => {
 				console.log(r)
@@ -57,7 +60,7 @@ export function SolicitarAcg() {
 			})
 			.catch((e) => {
 				console.log(e)
-				alert('Erro ao buscar as atividades. Atualize a pagina para tentar novamente')
+				grupo && alert('Erro ao buscar as atividades. Atualize a pagina para tentar novamente')
 
 			})
 	}, [grupo])
@@ -230,7 +233,7 @@ export function SolicitarAcg() {
 												setAtividadeObj(atividades[index])
 											}}
 										>
-											<option value={''} selected disabled>
+											<option value={''} selected={!atividadeIndex} disabled>
 												Seleciona um Grupo
 											</option>
 											{_.map(atividades, (value, index) => {
@@ -268,6 +271,7 @@ export function SolicitarAcg() {
 										<Form.Control
 											required
 											type='date'
+											min={dataInicio}
 											max={new Date().toJSON().split('T')[0]}
 											value={dataFim}
 											onChange={(e) => setDataFim(e.target.value)}
